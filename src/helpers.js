@@ -4,9 +4,10 @@ const debug = require('debug')('botium-connector-genesys-agent-assist')
  * Method to fetch an authentication token
  * @returns {Promise<string>} - The authentication token
  */
-const getAuthToken = async (region, clientId, clientSecret) => {
+const getAuthToken = async (domain, clientId, clientSecret) => {
   try {
-    debug('auth token url:', `https://login.${region}.com/oauth/token`)
+    const authUrl = `https://login.${domain}/oauth/token`
+    debug('auth token url:', authUrl)
     const encryptedCredentials = Buffer.from(`${clientId}:${clientSecret}`).toString('base64')
 
     // Encode the body as x-www-form-urlencoded
@@ -14,7 +15,7 @@ const getAuthToken = async (region, clientId, clientSecret) => {
       grant_type: 'client_credentials'
     })
 
-    const response = await fetch(`https://login.${region}.com/oauth/token`, {
+    const response = await fetch(authUrl, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
@@ -45,7 +46,7 @@ const getAuthToken = async (region, clientId, clientSecret) => {
  * @param {object} headers - Additional headers to include
  * @returns {Promise<object>} - The API response
  */
-const callApi = async (token, region, endpoint, method = 'GET', body = null, timeout = 10000, headers = {}) => {
+const callApi = async (token, domain, endpoint, method = 'GET', body = null, timeout = 10000, headers = {}) => {
   try {
     const fetchOptions = {
       method,
@@ -59,9 +60,9 @@ const callApi = async (token, region, endpoint, method = 'GET', body = null, tim
       fetchOptions.body = JSON.stringify(body)
     }
 
-    debug('ap url:', `https://api.${region}.com/${endpoint}`)
+    debug('ap url:', `https://api.${domain}/${endpoint}`)
 
-    const response = await fetch(`https://api.${region}.com/${endpoint}`, { ...fetchOptions, signal: AbortSignal.timeout(timeout) })
+    const response = await fetch(`https://api.${domain}/${endpoint}`, { ...fetchOptions, signal: AbortSignal.timeout(timeout) })
 
     if (!response.ok) {
       throw new Error(`API call failed: ${response.status} - ${response.statusText}`)

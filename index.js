@@ -32,9 +32,9 @@ module.exports = {
     },
     capabilities: [
       {
-        name: 'GENESYS_AGENT_ASSIST_API_REGION',
-        label: 'Api Host',
-        description: 'Genesys Agent Assist Api Host',
+        name: 'GENESYS_AGENT_ASSIST_API_DOMAIN',
+        label: 'Api domain',
+        description: 'Genesys Agent Assist Api domain',
         type: 'string',
         required: false
 

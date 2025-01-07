@@ -3,7 +3,7 @@ const { getAuthToken, callApi, extractResponseText } = require('./helpers.js')
 const debug = require('debug')('botium-connector-genesys-agent-assist')
 
 const Capabilities = {
-  GENESYS_AGENT_ASSIST_API_REGION: 'GENESYS_AGENT_ASSIST_API_REGION',
+  GENESYS_AGENT_ASSIST_API_DOMAIN: 'GENESYS_AGENT_ASSIST_API_DOMAIN',
   GENESYS_AGENT_ASSIST_CLIENTID: 'GENESYS_AGENT_ASSIST_CLIENTID',
   GENESYS_AGENT_ASSIST_CLIENTSECRET: 'GENESYS_AGENT_ASSIST_CLIENTSECRET',
   GENESYS_AGENT_ASSIST_KNOWLEDGE_ID: 'GENESYS_AGENT_ASSIST_KNOWLEDGE_ID',
@@ -12,7 +12,7 @@ const Capabilities = {
 }
 
 const Defaults = {
-  [Capabilities.GENESYS_AGENT_ASSIST_API_REGION]: 'mypurecloud',
+  [Capabilities.GENESYS_AGENT_ASSIST_API_DOMAIN]: 'mypurecloud.com',
   [Capabilities.GENESYS_AGENT_ASSIST_INCLUDE_DRAFTDOCS]: true,
   [Capabilities.GENESYS_AGENT_ASSIST_TIMEOUT]: 10000
 }
@@ -27,7 +27,7 @@ class BotiumConnectorGenesysAgentAssist {
     debug('Validate called')
     this.caps = Object.assign({}, Defaults, this.caps)
 
-    if (!this.caps[Capabilities.GENESYS_AGENT_ASSIST_API_REGION]) throw new Error('GENESYS_AGENT_ASSIST_API_REGION capability required')
+    if (!this.caps[Capabilities.GENESYS_AGENT_ASSIST_API_DOMAIN]) throw new Error('GENESYS_AGENT_ASSIST_API_DOMAIN capability required')
     if (!this.caps[Capabilities.GENESYS_AGENT_ASSIST_CLIENTID]) throw new Error('GENESYS_AGENT_ASSIST_CLIENTID capability required')
     if (!this.caps[Capabilities.GENESYS_AGENT_ASSIST_CLIENTSECRET]) throw new Error('GENESYS_AGENT_ASSIST_CLIENTSECRET capability required')
     if (!this.caps[Capabilities.GENESYS_AGENT_ASSIST_KNOWLEDGE_ID]) throw new Error('GENESYS_AGENT_ASSIST_KNOWLEDGE_ID capability required')
@@ -43,12 +43,12 @@ class BotiumConnectorGenesysAgentAssist {
     debug('Start called')
     try {
       this.token = await getAuthToken(
-        this.caps[Capabilities.GENESYS_AGENT_ASSIST_API_REGION],
+        this.caps[Capabilities.GENESYS_AGENT_ASSIST_API_DOMAIN],
         this.caps[Capabilities.GENESYS_AGENT_ASSIST_CLIENTID],
         this.caps[Capabilities.GENESYS_AGENT_ASSIST_CLIENTSECRET])
 
       debug('----------Validation Phase----------')
-      debug('Genesys API Region:', this.caps[Capabilities.GENESYS_AGENT_ASSIST_API_REGION])
+      debug('Genesys API domain:', this.caps[Capabilities.GENESYS_AGENT_ASSIST_API_DOMAIN])
       debug('Genesys Token:', this.token)
       debug('Genesys Knowledge Id:', this.caps[Capabilities.GENESYS_AGENT_ASSIST_KNOWLEDGE_ID])
       debug('')
@@ -79,7 +79,7 @@ class BotiumConnectorGenesysAgentAssist {
       debug(`knowledgeId: ${knowledgeId}`)
 
       const sendMessageResponse = await callApi(this.token,
-        this.caps[Capabilities.GENESYS_AGENT_ASSIST_API_REGION],
+        this.caps[Capabilities.GENESYS_AGENT_ASSIST_API_DOMAIN],
                 `api/v2/knowledge/knowledgebases/${knowledgeId}/documents/search?expand=documentVariations`,
                 'POST',
                 inputPayload,

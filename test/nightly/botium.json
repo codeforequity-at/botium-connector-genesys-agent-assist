@@ -3,7 +3,7 @@
     "Capabilities": {
       "PROJECTNAME": "Botium Sample for Genesys Agent Assist",
       "CONTAINERMODE": "./src/connector.js",
-      "GENESYS_AGENT_ASSIST_API_REGION": "mypurecloud",
+      "GENESYS_AGENT_ASSIST_API_DOMAIN": "mypurecloud.com",
       "GENESYS_AGENT_ASSIST_CLIENTID": "",
       "GENESYS_AGENT_ASSIST_CLIENTSECRET": "",
       "GENESYS_AGENT_ASSIST_KNOWLEDGE_ID": "",

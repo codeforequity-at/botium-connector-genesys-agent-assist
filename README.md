@@ -55,7 +55,7 @@ Create a botium.json with Genesys ClientId, ClientSecret and KnowledgeId:
     "Capabilities": {
       "PROJECTNAME": "genesys-kb-connector",
       "CONTAINERMODE": "genesys-agent-assist",
-      "GENESYS_AGENT_ASSIST_API_REGION": "mypurecloud",
+      "GENESYS_AGENT_ASSIST_API_DOMAIN": "mypurecloud.com",
       "GENESYS_AGENT_ASSIST_CLIENTID": "xxx",
       "GENESYS_AGENT_ASSIST_CLIENTSECRET": "xxx",
       "GENESYS_AGENT_ASSIST_KNOWLEDGE_ID": "xxx",
@@ -72,9 +72,10 @@ Botium setup is ready, you can begin to write your [BotiumScript](https://github
 
 Set the capability __CONTAINERMODE__ to __genesys-agent-assist__ to activate this connector.
 
-### GENESYS_AGENT_ASSIST_API_REGION
+### GENESYS_AGENT_ASSIST_API_DOMAIN
 See [Genesys Cloud environment region] (https://developer.genesys.cloud/platform/api/)
-default: mypurecloud(us-east-1)
+example values: mypurecloud.com (us-east-1), usw2.pure.cloud (us-west-2), api.mypurecloud.ie (eu-west-1) etc.
+default: mypurecloud.com
 
 ### GENESYS_AGENT_ASSIST_CLIENTID
 See [Genesys PureCloud ClientId and ClientSecret](https://help.mypurecloud.com/articles/create-an-oauth-client/)
