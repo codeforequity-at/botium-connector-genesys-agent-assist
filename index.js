@@ -24,11 +24,11 @@ module.exports = {
     features: {
       intentResolution: true,
       intentConfidenceScore: true,
-      alternateIntents: true,
-      entityResolution: true,
+      alternateIntents: false,
+      entityResolution: false,
       entityConfidenceScore: false,
-      testCaseGeneration: true,
-      testCaseExport: true
+      testCaseGeneration: false,
+      testCaseExport: false
     },
     capabilities: [
       {
@@ -64,7 +64,7 @@ module.exports = {
         name: 'GENESYS_AGENT_ASSIST_INCLUDE_DRAFTDOCS',
         label: 'Include Draft Docs',
         description: 'Genesys Agent Assist Include Draft Docs while querying documents',
-        type: 'bool',
+        type: 'boolean',
         required: false
       },
       {
