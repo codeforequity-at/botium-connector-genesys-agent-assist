@@ -1,0 +1,27 @@
+{
+  "name": "connector-test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "postinstall": "cd ../../ && npm install --no-save botium-core",
+    "test": "set DEBUG=botium-connector-genesys-agent-assist&& mocha spec"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "botium-core": "^1.13.12"
+  },
+  "botium": {
+    "convodirs": [
+      "spec/convo"
+    ],
+    "expandConvos": true,
+    "expandUtterancesToConvos": false
+  },
+  "devDependencies": {
+    "botium-bindings": "latest",
+    "botium-connector-genesys-agent-assist": "../../",
+    "mocha": "latest"
+  }
+}

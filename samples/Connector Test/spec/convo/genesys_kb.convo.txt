@@ -1,0 +1,9 @@
+genesys agent assist test
+
+#me
+UTT_USER_CALL_COST
+
+#bot
+UTT_BOT_CALL_COST
+INTENT Cyara Call Costs - Everything One Needs To Know
+INTENT_CONFIDENCE 90

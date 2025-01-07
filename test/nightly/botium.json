@@ -1,0 +1,16 @@
+{
+  "botium": {
+    "Capabilities": {
+      "PROJECTNAME": "Botium Sample for Genesys Agent Assist",
+      "CONTAINERMODE": "./src/connector.js",
+      "GENESYS_AGENT_ASSIST_API_REGION": "mypurecloud",
+      "GENESYS_AGENT_ASSIST_CLIENTID": "",
+      "GENESYS_AGENT_ASSIST_CLIENTSECRET": "",
+      "GENESYS_AGENT_ASSIST_KNOWLEDGE_ID": "",
+      "GENESYS_AGENT_ASSIST_INCLUDE_DRAFTDOCS": true,
+      "GENESYS_AGENT_ASSIST_TIMEOUT": 60000
+    },
+    "Sources": {},
+    "Envs": {}
+  }
+}

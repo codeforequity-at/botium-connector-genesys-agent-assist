@@ -1,0 +1,9 @@
+genesys agent assist test
+
+#me
+Call
+
+#bot
+Variation2: Call costs are incurred when making voice calls to non-Toll-Free Numbers. Velocity and Cruncher have different cost.
+INTENT Cyara Call Costs - Everything One Needs To Know
+INTENT_CONFIDENCE 90

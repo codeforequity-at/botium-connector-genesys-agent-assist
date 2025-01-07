@@ -1,0 +1,13 @@
+genesys agent assist test
+
+#me
+What are the different Call Costs in Cyara?
+
+#bot
+Genesys-AgentAssist: Variation2: Call costs are incurred when making voice calls to non-Toll-Free Numbers. Velocity and Cruncher have different cost.
+
+#me
+What Databases does Cyara Support?
+
+#bot
+Genesys-AgentAssist: What Datases not supported by Cyara? Answer: Cyara Platform currently supports Microsoft SQL Server (MS SQL) only. It doesn't support Oracle, MongoDB or noSQL db.

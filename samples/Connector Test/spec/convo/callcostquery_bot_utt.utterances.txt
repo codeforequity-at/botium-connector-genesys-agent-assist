@@ -1,0 +1,3 @@
+UTT_BOT_CALL_COST
+Variation2: Call costs are incurred when making voice calls to non-Toll-Free Numbers. Velocity and Cruncher have different cost.
+What are call costs? Call costs are charges for making voice calls to non Toll-Free Numbers from or to the Cyara Platform.    When are call costs incurred?  Call costs are incurred when making voice calls to non-Toll-Free Numbers in the following ways f...

@@ -1,0 +1,6 @@
+UTT_USER_CALL_COST
+What are the different Call Costs in Cyara?
+What kind of Call Costs that are involved?
+Call Costs
+What are call charges involved in velocity Cyara Testing?
+What charges I may get if I run Cyara test cases?
