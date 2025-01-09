@@ -1,5 +1,5 @@
 const { getAuthToken, callApi, extractResponseText } = require('./helpers.js')
-
+const BotErrorMessage = require('./error-message.js')
 const debug = require('debug')('botium-connector-genesys-agent-assist')
 
 const Capabilities = {
@@ -61,6 +61,8 @@ class BotiumConnectorGenesysAgentAssist {
     debug('UserSays called')
     if (!this.token) throw new Error('no token')
 
+    if (msg.messageText.length < 3) throw new Error(BotErrorMessage.INVALID_MESSAGE)
+
     const getInputPayload = () => {
       return {
         query: msg.messageText,
@@ -117,6 +119,11 @@ class BotiumConnectorGenesysAgentAssist {
     }
 
     const messageText = extractResponseText(sendMessageResponse)
+
+    if (!messageText) {
+      sendBotMsg({ messageText: BotErrorMessage.INVALID_QUERY })
+      return
+    }
 
     sendBotMsg({ messageText })
   }

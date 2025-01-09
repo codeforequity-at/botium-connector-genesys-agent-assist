@@ -32,8 +32,8 @@ const getAuthToken = async (domain, clientId, clientSecret) => {
 
     return data.access_token
   } catch (error) {
-    console.error('Error fetching auth token:', error)
-    throw error
+    debug('Error fetching auth token:', error)
+    throw new Error(`Error fetching auth token: ${error.message}`)
   }
 }
 
@@ -73,11 +73,11 @@ const callApi = async (token, domain, endpoint, method = 'GET', body = null, tim
     return data
   } catch (error) {
     if (error.name === 'AbortError') {
-      console.error('Request timed out')
+      debug('Error: Request timed out')
     } else {
-      console.error('Error making API call:', error)
+      debug('Error making API call:', error)
     }
-    throw error
+    throw new Error(`Error making API call: ${error.message}`)
   }
 }
 
