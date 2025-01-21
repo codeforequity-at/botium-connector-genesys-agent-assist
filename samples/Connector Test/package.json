@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "postinstall": "cd ../../ && npm install --no-save botium-core",
-    "test": "set DEBUG=botium-connector-genesys-agent-assist&& mocha spec"
+    "test": "set DEBUG=botium-connector-genesys-agent-assist&& mocha spec",
+    "import-intents": "set DEBUG=botium-connector-genesys-agent-assist-intents&& botium-connector-genesys-agent-assist-cli import --output ./spec/convo/genesys-import",
+    "import-testcases": "set DEBUG=botium-connector-genesys-agent-assist-intents&& botium-connector-genesys-agent-assist-cli  import --buildconvos --output ./spec/convo/genesys-import"
   },
   "author": "",
   "license": "ISC",

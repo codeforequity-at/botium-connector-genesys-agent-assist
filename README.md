@@ -68,6 +68,22 @@ Create a botium.json with Genesys ClientId, ClientSecret and KnowledgeId:
 
 Botium setup is ready, you can begin to write your [BotiumScript](https://github.com/codeforequity-at/botium-core/wiki/Botium-Scripting) files.
 
+## Using the botium-connector-genesys-agent-assist-cli
+
+This connector provides a CLI interface for importing convos and utterances from your Genesys Knowledge base and convert it to BotiumScript.
+
+* Intents(document title) and Utterances(phrases) are converted to BotiumScript utterances and convo files (using the --buildconvos option)
+
+You can either run the CLI with *[botium-cli](https://github.com/codeforequity-at/botium-cli) (recommended - it is integrated there)*, or directly from this connector (see samples/Connector-Test/package.json for some examples):
+
+    > botium-connector-genesys-agent-assist-cli import --buildconvos
+
+_Please note that a botium-core installation is required_
+
+For getting help on the available CLI options and switches, run:
+
+    > botium-connector-genesys-agent-assist-cli import --help
+
 ## Supported Capabilities
 
 Set the capability __CONTAINERMODE__ to __genesys-agent-assist__ to activate this connector.
@@ -89,6 +105,10 @@ The Id of Knowlege Base to which Agent assist is conected to (https://help.mypur
 ### GENESYS_AGENT_ASSIST_INCLUDE_DRAFTDOCS
 Indicates whether the search results would also include draft documents.
 default: true
+
+### GENESYS_AGENT_ASSIST_MAX_ANSWERS
+Maxium number of answers expected for a query by Agent Assist
+default: 5
 
 ### GENESYS_AGENT_ASSIST_TIMEOUT
 API Timeout

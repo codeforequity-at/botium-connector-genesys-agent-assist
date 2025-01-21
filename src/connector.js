@@ -1,21 +1,7 @@
 const { getAuthToken, callApi, extractResponseText } = require('./helpers.js')
 const BotErrorMessage = require('./error-message.js')
+const { Capabilities, Defaults } = require('./constants.js')
 const debug = require('debug')('botium-connector-genesys-agent-assist')
-
-const Capabilities = {
-  GENESYS_AGENT_ASSIST_API_DOMAIN: 'GENESYS_AGENT_ASSIST_API_DOMAIN',
-  GENESYS_AGENT_ASSIST_CLIENTID: 'GENESYS_AGENT_ASSIST_CLIENTID',
-  GENESYS_AGENT_ASSIST_CLIENTSECRET: 'GENESYS_AGENT_ASSIST_CLIENTSECRET',
-  GENESYS_AGENT_ASSIST_KNOWLEDGE_ID: 'GENESYS_AGENT_ASSIST_KNOWLEDGE_ID',
-  GENESYS_AGENT_ASSIST_INCLUDE_DRAFTDOCS: 'GENESYS_AGENT_ASSIST_INCLUDE_DRAFTDOCS',
-  GENESYS_AGENT_ASSIST_TIMEOUT: 'GENESYS_AGENT_ASSIST_TIMEOUT'
-}
-
-const Defaults = {
-  [Capabilities.GENESYS_AGENT_ASSIST_API_DOMAIN]: 'mypurecloud.com',
-  [Capabilities.GENESYS_AGENT_ASSIST_INCLUDE_DRAFTDOCS]: true,
-  [Capabilities.GENESYS_AGENT_ASSIST_TIMEOUT]: 10000
-}
 
 class BotiumConnectorGenesysAgentAssist {
   constructor ({ queueBotSays, caps }) {
@@ -66,10 +52,10 @@ class BotiumConnectorGenesysAgentAssist {
     const getInputPayload = () => {
       return {
         query: msg.messageText,
-        pageSize: 1,
-        pageNumber: 1,
+        pageSize: this.caps[Capabilities.GENESYS_AGENT_ASSIST_MAX_ANSWERS],
         includeDraftDocuments: this.caps[Capabilities.GENESYS_AGENT_ASSIST_INCLUDE_DRAFTDOCS],
-        includeVariations: 'SingleMostRelevant'
+        includeVariations: 'SingleMostRelevant',
+        sortBy: 'ConfidenceScore'
       }
     }
 
@@ -82,7 +68,7 @@ class BotiumConnectorGenesysAgentAssist {
 
       const sendMessageResponse = await callApi(this.token,
         this.caps[Capabilities.GENESYS_AGENT_ASSIST_API_DOMAIN],
-                `api/v2/knowledge/knowledgebases/${knowledgeId}/documents/search?expand=documentVariations`,
+                `/api/v2/knowledge/knowledgebases/${knowledgeId}/documents/search?expand=documentVariations`,
                 'POST',
                 inputPayload,
                 this.caps[Capabilities.GENESYS_AGENT_ASSIST_TIMEOUT])
@@ -104,15 +90,26 @@ class BotiumConnectorGenesysAgentAssist {
       entities: []
     }
 
-    if (sendMessageResponse && sendMessageResponse.results && sendMessageResponse.results.length > 0) {
+    const intents = sendMessageResponse.results.map(knowledge => (
+      {
+        confidence: knowledge.confidence,
+        name: knowledge.document.title
+      }
+    ))
+
+    if (intents && intents.length > 0) {
       nlp.intent = {
-        name: sendMessageResponse.results[0].document.title,
-        confidence: sendMessageResponse.results[0].confidence,
+        name: intents[0].name,
+        confidence: intents[0].confidence,
         intents: []
       }
+
+      nlp.intent.intents = intents.length > 1 && intents.slice(1).map((intent) => {
+        return { name: intent.name, confidence: intent.confidence }
+      })
     }
 
-    debug(nlp)
+    debug(JSON.stringify(nlp, null, 2))
 
     const sendBotMsg = (botMsg) => {
       setTimeout(() => this.queueBotSays(Object.assign({}, { sender: 'bot', sourceData: sendMessageResponse, nlp }, botMsg)), 0)

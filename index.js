@@ -1,6 +1,5 @@
 const BotiumConnectorGenesysAgentAssist = require('./src/connector')
-// const { importHandler, importArgs } = require('./src/intents')
-// const { exportHandler, exportArgs } = require('./src/intents')
+const { importHandler, importArgs } = require('./src/kbintents')
 const fs = require('fs')
 const path = require('path')
 
@@ -9,14 +8,10 @@ const logo = fs.readFileSync(path.join(__dirname, 'logo.png')).toString('base64'
 module.exports = {
   PluginVersion: 1,
   PluginClass: BotiumConnectorGenesysAgentAssist,
-  // Import: {
-  //   Handler: importHandler,
-  //   Args: importArgs
-  // },
-  // Export: {
-  //   Handler: exportHandler,
-  //   Args: exportArgs
-  // },
+  Import: {
+    Handler: importHandler,
+    Args: importArgs
+  },
   PluginDesc: {
     name: 'Genesys Cloud Agent Assist Testing',
     avatar: logo,
@@ -65,6 +60,14 @@ module.exports = {
         label: 'Include Draft Docs',
         description: 'Genesys Agent Assist Include Draft Docs while querying documents',
         type: 'boolean',
+        required: false
+      },
+      {
+        name: 'GENESYS_AGENT_ASSIST_MAX_ANSWERS',
+        label: 'Max Answers',
+        description: 'Genesys Agent Assist Max Answers',
+        type: 'int',
+        advanced: true,
         required: false
       },
       {

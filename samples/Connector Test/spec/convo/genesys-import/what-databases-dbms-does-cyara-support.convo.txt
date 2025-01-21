@@ -1,0 +1,7 @@
+What Databases (DBMS) Does Cyara Support?
+
+#me
+What Databases (DBMS) Does Cyara Support?
+
+#bot
+INTENT What Databases (DBMS) Does Cyara Support?

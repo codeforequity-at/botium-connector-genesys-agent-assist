@@ -1,0 +1,4 @@
+VoIP Protocols and Codecs of Cyara
+VoIP Protocols and Codecs supported by Cyara Support
+What Codecs and Voip Protocols is supported by Cyara
+Does Cyara Support h323 Voip protocol and what Codec I need to cofnigure to use.
