@@ -2,11 +2,30 @@
   "name": "botium-connector-genesys-agent-assist",
   "version": "1.0.0",
   "description": "Botium Connector for Genesys Cloud Agent Assist",
-  "scripts": {
-    "eslint": "eslint index.js src",
-    "eslint-fix": "eslint --fix index.js src",
-    "test-nightly": "mocha test/nightly/**/*spec.js"
+  "main": "dist/botium-connector-genesys-agent-assist-cjs.js",
+  "module": "dist/botium-connector-genesys-agent-assist-es.js",
+  "engines": {
+    "node": ">=10"
   },
+  "bin": {
+    "botium-connector-genesys-agent-assist-cli": "./bin/cli.js"
+  },
+  "scripts": {
+    "build": "npm run eslint && rollup -c",
+    "eslint": "eslint index.js src/*.js bin/*.js",
+    "eslint-fix": "eslint --fix index.js src/*.js bin/*.js",
+    "test-nightly": "set DEBUG=botium-connector-genesys-agent-assist&& mocha test/nightly/**/*spec.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/codeforequity-at/botium-connector-genesys-agent-assist.git"
+  },
+  "author": "Florian Treml",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/codeforequity-at/botium-core/issues"
+  },
+  "homepage": "https://www.botium.ai",
   "devDependencies": {
     "@babel/core": "^7.9.6",
     "@babel/node": "^7.8.7",
@@ -26,11 +45,20 @@
     "rollup": "^2.10.9",
     "rollup-plugin-babel": "^4.4.0",
     "rollup-plugin-commonjs": "^10.1.0",
+    "rollup-plugin-copy": "^3.5.0",
     "rollup-plugin-json": "^4.0.0",
     "rollup-plugin-node-resolve": "^5.2.0"
   },
   "dependencies": {
     "@babel/runtime": "^7.9.6",
-    "debug": "^4.3.4"
+    "debug": "^4.3.4",
+    "lodash": "^4.17.21",
+    "mkdirp": "^3.0.1",
+    "slug": "^8.2.2",
+    "xlsx": "^0.18.5",
+    "yargs": "^17.7.2"
+  },
+  "peerDependencies": {
+    "botium-core": "^1.14.10"
   }
 }

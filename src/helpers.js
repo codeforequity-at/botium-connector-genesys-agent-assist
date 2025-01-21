@@ -60,9 +60,9 @@ const callApi = async (token, domain, endpoint, method = 'GET', body = null, tim
       fetchOptions.body = JSON.stringify(body)
     }
 
-    debug('ap url:', `https://api.${domain}/${endpoint}`)
+    debug('ap url:', `https://api.${domain}${endpoint}`)
 
-    const response = await fetch(`https://api.${domain}/${endpoint}`, { ...fetchOptions, signal: AbortSignal.timeout(timeout) })
+    const response = await fetch(`https://api.${domain}${endpoint}`, { ...fetchOptions, signal: AbortSignal.timeout(timeout) })
 
     if (!response.ok) {
       throw new Error(`API call failed: ${response.status} - ${response.statusText}`)

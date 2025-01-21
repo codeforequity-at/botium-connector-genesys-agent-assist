@@ -1,4 +1,0 @@
-DB_QUERY_UTT
-Databases suppported by Cyara
-Do you support MongoDB?
-Does Cyara Support Oracle DB?
