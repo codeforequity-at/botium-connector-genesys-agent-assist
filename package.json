@@ -14,6 +14,7 @@
     "build": "npm run eslint && rollup -c",
     "eslint": "eslint index.js src/*.js bin/*.js",
     "eslint-fix": "eslint --fix index.js src/*.js bin/*.js",
+    "test": "echo 'Not implemented yet'",
     "test-nightly": "set DEBUG=botium-connector-genesys-agent-assist&& mocha test/nightly/**/*spec.js"
   },
   "repository": {
