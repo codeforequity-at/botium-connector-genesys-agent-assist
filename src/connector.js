@@ -73,8 +73,7 @@ class BotiumConnectorGenesysAgentAssist {
                 inputPayload,
                 this.caps[Capabilities.GENESYS_AGENT_ASSIST_TIMEOUT])
 
-      debug('Genesys agent-assist response')
-      debug(sendMessageResponse)
+      debug(`Genesys agent-assist response: ${JSON.stringify(sendMessageResponse, null, 2)}`)
 
       await this._processGenesysAssistResponse(sendMessageResponse)
     } catch (err) {
@@ -109,8 +108,6 @@ class BotiumConnectorGenesysAgentAssist {
       })
     }
 
-    debug(JSON.stringify(nlp, null, 2))
-
     const sendBotMsg = (botMsg) => {
       setTimeout(() => this.queueBotSays(Object.assign({}, { sender: 'bot', sourceData: sendMessageResponse, nlp }, botMsg)), 0)
     }
@@ -121,6 +118,10 @@ class BotiumConnectorGenesysAgentAssist {
       sendBotMsg({ messageText: BotErrorMessage.INVALID_QUERY })
       return
     }
+
+    debug(`bot reply: ${messageText}`)
+
+    debug(`bot nlp: ${JSON.stringify(nlp, null, 2)}`)
 
     sendBotMsg({ messageText })
   }

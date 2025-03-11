@@ -81,21 +81,68 @@ const callApi = async (token, domain, endpoint, method = 'GET', body = null, tim
   }
 }
 
-const extractResponseText = (data) => {
+const extractResponseText = data => {
   const result = data.results[0] // Access the first result
   if (result && result.document && result.document.variations) {
     const variation = result.document.variations[0] // Access the first variation
     if (variation && variation.body && variation.body.blocks) {
-      const paragraph = variation.body.blocks[0].paragraph
-      if (paragraph && paragraph.blocks) {
-        const textBlock = paragraph.blocks[0]
-        if (textBlock && textBlock.text) {
-          return textBlock.text.text // Extract the text value
-        }
-      }
+      let listIndex = 1
+      return variation.body.blocks
+        .map(block => {
+          if (block.type === 'Paragraph' && block.paragraph && block.paragraph.blocks) {
+            return block.paragraph.blocks
+              .map(b => {
+                let text = b.text.text
+                if (b.text.marks && b.text.marks.includes('Bold')) {
+                  text = `*${text}*` // Wrap bold text with asterisks
+                }
+                if (b.text.hyperlink) {
+                  text = `[${text}](${b.text.hyperlink})` // Convert to markdown hyperlink
+                }
+                return text
+              })
+              .join('') // Join text within paragraph
+          }
+          if (block.type === 'OrderedList' && block.list && block.list.blocks) {
+            return block.list.blocks
+              .map(item =>
+                item.blocks
+                  ? item.blocks
+                    .map(b => b.text.text)
+                    .map(text => `${listIndex++}. ${text}`) // Number ordered list items
+                    .join('')
+                  : ''
+              )
+              .join('\n')
+          }
+          if (block.type === 'UnorderedList' && block.list && block.list.blocks) {
+            return block.list.blocks
+              .map(item =>
+                item.blocks
+                  ? item.blocks
+                    .map(b => {
+                      let text = b.text.text
+                      if (b.text.marks && b.text.marks.includes('Bold')) {
+                        text = `*${text}*` // Wrap bold list items
+                      }
+                      if (b.text.hyperlink) {
+                        text = `[${text}](${b.text.hyperlink})` // Convert list items to hyperlinks if needed
+                      }
+                      return text
+                    })
+                    .join('')
+                  : ''
+              )
+              .map(text => `- ${text}`) // Format list items with a bullet
+              .join('\n')
+          }
+          return ''
+        })
+        .filter(text => text.trim() !== '') // Remove empty lines
+        .join('\n\n') // Separate paragraphs with double new lines
     }
   }
-  return null // Return null if the text is not found
+  return null // Return null if no text is found
 }
 
 module.exports = {
