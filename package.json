@@ -1,6 +1,6 @@
 {
   "name": "botium-connector-genesys-agent-assist",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Botium Connector for Genesys Cloud Agent Assist",
   "main": "dist/botium-connector-genesys-agent-assist-cjs.js",
   "module": "dist/botium-connector-genesys-agent-assist-es.js",
